@@ -13,86 +13,30 @@ import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 
 import com.example.louis.carsomeandroidkotlin.R
+import com.example.louis.carsomeandroidkotlin.base.BaseActivity
+import com.example.louis.carsomeandroidkotlin.databinding.ActivityLoginBinding
+import com.example.louis.carsomeandroidkotlin.page.cars.CarListActivity
 
 import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel>(), LoginNavigator {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
-        // Set up the login form.
-
-        password.setOnEditorActionListener(TextView.OnEditorActionListener { _, id, _ ->
-            if (id == EditorInfo.IME_ACTION_DONE || id == EditorInfo.IME_NULL) {
-                attemptLogin()
-                return@OnEditorActionListener true
-            }
-            false
-        })
-
-        email_sign_in_button.setOnClickListener { attemptLogin() }
+        performDataBinding()
+        mViewModel.initializeTextView(email, password)
+        supportActionBar?.title = "CarSome"
     }
 
 
+    override fun getViewModel(): LoginViewModel { return LoginViewModel() }
 
-    private fun attemptLogin() {
+    override fun getContextType(): Any { return this }
 
+    override fun getLayoutId(): Int { return R.layout.activity_login }
 
-        // Reset errors.
-        email.error = null
-        password.error = null
+    override fun toCarListActivity() { pageTransistor(CarListActivity::class.java) }
 
-        // Store values at the time of the login attempt.
-        val emailStr = email.text.toString()
-        val passwordStr = password.text.toString()
-
-        var cancel = false
-        var focusView: View? = null
-
-        // Check for a valid password, if the user entered one.
-        if (!TextUtils.isEmpty(passwordStr) && !isPasswordValid(passwordStr)) {
-            password.error = getString(R.string.error_invalid_password)
-            focusView = password
-            cancel = true
-        }
-
-        // Check for a valid email address.
-        if (TextUtils.isEmpty(emailStr)) {
-            email.error = getString(R.string.error_field_required)
-            focusView = email
-            cancel = true
-        } else if (!isEmailValid(emailStr)) {
-            email.error = getString(R.string.error_invalid_email)
-            focusView = email
-            cancel = true
-        }
-
-        if (cancel) {
-            // There was an error; don't attempt login and focus the first
-            // form field with an error.
-            focusView?.requestFocus()
-        } else {
-            // Show a progress spinner, and kick off a background task to
-            // perform the user login attempt.
-            showProgress(true)
-
-        }
-    }
-
-    private fun isEmailValid(email: String): Boolean {
-        //TODO: Replace this with your own logic
-        return email.contains("@")
-    }
-
-    private fun isPasswordValid(password: String): Boolean {
-        //TODO: Replace this with your own logic
-        return password.length > 4
-    }
-
-    /**
-     * Shows the progress UI and hides the login form.
-     */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
     private fun showProgress(show: Boolean) {
 
@@ -127,11 +71,4 @@ class LoginActivity : AppCompatActivity() {
 
 
 
-
-    companion object {
-
-        private val REQUEST_READ_CONTACTS = 0
-
-        private val DUMMY_CREDENTIALS = "test@carsome.com"
-    }
 }
