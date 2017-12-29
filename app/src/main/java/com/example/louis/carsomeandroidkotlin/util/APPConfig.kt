@@ -11,8 +11,8 @@ object APPConfig {
     const val AuthenticatorString: String = "Logging"
     const val CarDetailString: String = "CarDetail"
 
-    const val DUMMY_CREDENTIALS_ID = "test@carsome.com"
-    const val DUMMY_CREDENTIALS_PASS = "qwerqwer"
+    const val DUMMY_CREDENTIALS_ID = "tester@carsome.com"
+    const val DUMMY_CREDENTIALS_PASS = "test123"
 
     val carList: ArrayList<Car> = arrayListOf(
             Car(R.drawable.audi, "Audi", "RM100,000"),
@@ -25,6 +25,6 @@ object APPConfig {
             Car(R.drawable.renault, "Renault", "RM100,000"),
             Car(R.drawable.swift, "Swift", "RM100,000"),
             Car(R.drawable.tesla, "Tesla", "  RM100,000")
-            )
+    )
 
 }
