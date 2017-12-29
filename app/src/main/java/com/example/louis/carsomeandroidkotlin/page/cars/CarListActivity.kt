@@ -1,7 +1,7 @@
 package com.example.louis.carsomeandroidkotlin.page.cars
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+
 import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import com.example.louis.carsomeandroidkotlin.R
@@ -16,13 +16,15 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.louis.carsomeandroidkotlin.page.car_detail.CarDetailActivity
+import com.example.louis.carsomeandroidkotlin.page.login.LoginActivity
 import com.example.louis.carsomeandroidkotlin.util.APPConfig
+import com.example.louis.carsomeandroidkotlin.util.SharedPreferences
 
 
 class CarListActivity : BaseActivity<ActivityCarDetailBinding, CarListViewModel>(), CarListNavigator {
 
-    lateinit var recyclerView: RecyclerView
-    lateinit var carAdapter: CarsAdapter
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var carAdapter: CarsAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,7 +41,9 @@ class CarListActivity : BaseActivity<ActivityCarDetailBinding, CarListViewModel>
 
         return when (item.itemId) {
             R.id.action_logout -> {
-                Log.d("Menu", "menu clicked")
+                SharedPreferences.edit(this, false)
+                pageTransistor(LoginActivity::class.java)
+                finishAffinity()
                 return true
             }
             else -> super.onOptionsItemSelected(item)

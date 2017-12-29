@@ -9,18 +9,19 @@ import android.content.Context
  */
 object SharedPreferences {
 
-    fun edit(activity: Activity, boolean: Boolean){
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+    fun edit(context: Context, boolean: Boolean){
+        val sharedPref = context.getSharedPreferences("MyPref",Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.putBoolean(APPConfig.AuthenticatorString, boolean)
-        editor.apply()
+        editor.commit()
+
     }
 
-    fun isLogged(activity: Activity): Boolean{
+    fun isLogged(context: Context): Boolean{
 
-        val sharedPref = activity.getPreferences(Context.MODE_PRIVATE)
+        val sharedPref = context.getSharedPreferences("MyPref", Context.MODE_PRIVATE)
 
-        return sharedPref.getBoolean(APPConfig.AuthenticatorString, true)
+        return sharedPref.getBoolean(APPConfig.AuthenticatorString, false)
     }
 
 }
