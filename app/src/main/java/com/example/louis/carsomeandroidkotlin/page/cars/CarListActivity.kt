@@ -8,11 +8,9 @@ import com.example.louis.carsomeandroidkotlin.R
 import com.example.louis.carsomeandroidkotlin.adapter.CarsAdapter
 import com.example.louis.carsomeandroidkotlin.base.BaseActivity
 import com.example.louis.carsomeandroidkotlin.databinding.ActivityCarDetailBinding
-import com.example.louis.carsomeandroidkotlin.model.Car
 import kotlinx.android.synthetic.main.activity_car_list.*
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.DefaultItemAnimator
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import com.example.louis.carsomeandroidkotlin.page.car_detail.CarDetailActivity
@@ -32,11 +30,13 @@ class CarListActivity : BaseActivity<ActivityCarDetailBinding, CarListViewModel>
         setupRecycleView()
 
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
 
         menuInflater.inflate(R.menu.main_menu, menu)
         return true
     }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         return when (item.itemId) {
