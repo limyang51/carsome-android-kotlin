@@ -1,4 +1,4 @@
-package com.example.louis.carsomeandroidkotlin
+package com.example.louis.carsomeandroidkotlin.util
 
 import com.example.louis.carsomeandroidkotlin.model.Car
 
@@ -9,9 +9,7 @@ object APPConfig {
 
     const val AuthentivatorString: String = "Logging"
 
-
     const val DUMMY_CREDENTIALS_ID = "test@carsome.com"
     const val DUMMY_CREDENTIALS_PASS = "qwerqwer"
 
-    val DUMMY_CAR_LIST: ArrayList<Car> = ArrayList()
 }
