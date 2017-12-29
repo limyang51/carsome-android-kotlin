@@ -15,9 +15,9 @@ import android.view.LayoutInflater
 /**
  * Created by Louis on 29/12/2017.
  */
-class CarsAdapter(cars: ArrayList<Car>) : RecyclerView.Adapter<CarsAdapter.CarViewHolder>() {
+class CarsAdapter(cars: ArrayList<Car>, itemClickListener: OnItemClickListener) : RecyclerView.Adapter<CarsAdapter.CarViewHolder>() {
 
-
+    var listener: OnItemClickListener = itemClickListener
     var carList: ArrayList<Car> = cars
 
     override fun getItemCount(): Int { return carList.size }
@@ -37,19 +37,21 @@ class CarsAdapter(cars: ArrayList<Car>) : RecyclerView.Adapter<CarsAdapter.CarVi
     }
 
 
-    class CarViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    inner class CarViewHolder(view: View): RecyclerView.ViewHolder(view) {
 
-        lateinit var listener: OnItemClickListener
         var image: ImageView = view.findViewById(R.id.car_image)
         var textName: TextView = view.findViewById(R.id.car_name)
         var textPrice: TextView = view.findViewById(R.id.car_price)
 
+        init{
+            view.setOnClickListener { view -> listener.onItemClick(view, adapterPosition) }
+        }
 
 
     }
 
     interface OnItemClickListener{
-        fun onItemClick(position: Int)
+        fun onItemClick(view: View, position: Int)
     }
 
 }

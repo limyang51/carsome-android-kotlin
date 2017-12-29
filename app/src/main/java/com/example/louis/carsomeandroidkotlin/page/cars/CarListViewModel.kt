@@ -1,48 +1,26 @@
 package com.example.louis.carsomeandroidkotlin.page.cars
 
+import android.util.Log
+import android.view.View
 import com.example.louis.carsomeandroidkotlin.R
+import com.example.louis.carsomeandroidkotlin.adapter.CarsAdapter
 import com.example.louis.carsomeandroidkotlin.base.ViewModel
 import com.example.louis.carsomeandroidkotlin.model.Car
+import com.example.louis.carsomeandroidkotlin.util.APPConfig
 
 /**
  * Created by Louis on 28/12/2017.
  */
-class CarListViewModel: ViewModel<CarListNavigator>() {
+class CarListViewModel: ViewModel<CarListNavigator>(), CarsAdapter.OnItemClickListener {
 
-    var carList: ArrayList<Car> = ArrayList()
+    var carList: ArrayList<Car> = APPConfig.carList
 
-    fun setupDummyData(){
 
-        var car = Car(R.drawable.audi, "Audi", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.bmw, "BMW", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.honda, "Honda", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.mazada, "Mazada", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.mercedez, "Mercedes Benz", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.bmw, "BMW", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.peugeot, "Peugeot", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.renault, "Renault", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.swift, "Swift", "RM100,000")
-        carList.add(car)
-
-        car = Car(R.drawable.tesla, "Tesla", "  RM100,000")
-        carList.add(car)
+    override fun onItemClick(view: View, position: Int) {
+        Log.d("RecycleViewClick", "position at $position name: " + carList[position].name)
+        getNavigator().toCarDetailActivity(position)
     }
+
 
 
 
